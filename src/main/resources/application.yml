@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: TestSecurity
+  datasource:
+    url: jdbc:mysql://localhost:3306/test_security?serverTimezone=Asia/Seoul
+    username: username
+    password: password
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+  mustache:
+    servlet:
+      expose-request-attributes: true
+
+server:
+  servlet:
+    session:
+      timeout: 3600 # 세션 소멸 시간 지정 (단위: 초)
+
