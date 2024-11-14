@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>User Managing Page</title>
+</head>
+<body>
+<div class="container mt-5">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">User name</th>
+            <th scope="col">Role</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#userList}}
+            <tr id="{{id}}">
+                <th scope="row">{{id}}</th>
+                <td>{{username}}</td>
+                <td>{{role}}</td>
+                <td>
+                    <button class="border-0 bg-white" onclick="deleteUser({{id}})">❌</button>
+                </td>
+            </tr>
+        {{/userList}}
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+<script>
+    async function deleteUser(id){
+        const response = await fetch(`http://localhost:8080/api/admin/users/${id}`,{
+            method: "DELETE"
+        })
+        console.log(response)
+        if(response.status === 200){
+            let userInfo = document.getElementById(id)
+            userInfo.remove();
+        }
+    }
+</script>
+</html>

@@ -17,30 +17,29 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/", "/login","/loginProc","/join","joinProc").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("api/admin/**","/admin/**").hasRole("ADMIN")
                         .requestMatchers("/my/**", "/logout").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
                 );
 
-//        http
-//                .formLogin((auth) -> auth
-//                        .loginPage("/login")
-//                        .loginProcessingUrl("/loginProc")
-//                        .permitAll()
-//                );
+        // rest api 요청을 할 경우 csrf 검증 비활성화
+        http
+                .csrf((auth) -> auth
+                        .ignoringRequestMatchers("/api/**")
+                );
 
-        // http-basic 방식의 로그인, http 헤더에 인증 정보를 base64로 인코딩하여 전송
-//        http
-//                .httpBasic(Customizer.withDefaults());
+        http
+                .formLogin((auth) -> auth
+                        .loginPage("/login")
+                        .loginProcessingUrl("/loginProc")
+                        .permitAll()
+                );
 
         http
                 .logout((auth) -> auth
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
                 );
-
-//        http
-//                .csrf((auth) -> auth.disable());
 
         // 중복 로그인 처리하는 과정
         http
