@@ -1,27 +1,43 @@
 package org.example.testsecurity.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.testsecurity.dto.JoinRequestDTO;
-import org.example.testsecurity.service.JoinService;
 import org.example.testsecurity.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
 public class UserController {
 
-    private final JoinService joinService;
     private final UserService userService;
+
+    @GetMapping("/login")
+    public String loginP(){
+
+        return "login";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null){
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+
+        return "redirect:/login";
+    }
 
     @GetMapping("/join")
     public String joinP(){
@@ -43,7 +59,7 @@ public class UserController {
             return "join";
         }
 
-        joinService.joinProcess(joinRequestDTO);
+        userService.joinProcess(joinRequestDTO);
 
         return "redirect:/login";
     }
