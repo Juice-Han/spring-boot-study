@@ -1,5 +1,6 @@
 package org.example.testsecurity.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +18,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/", "/login","/loginProc","/join","joinProc").permitAll()
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // static 자원에 대한 접근 모두 허용
                         .requestMatchers("api/admin/**","/admin/**").hasRole("ADMIN")
                         .requestMatchers("/my/**", "/logout").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
