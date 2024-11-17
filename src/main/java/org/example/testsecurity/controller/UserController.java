@@ -25,28 +25,42 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public String loginP(){
+    public String loginP(HttpServletRequest request){
+
+        if(userService.isAuthenticated()){
+            return "redirect:/articleList";
+        }
 
         return "login";
     }
 
     @PostMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response){
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null){
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
 
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @GetMapping("/join")
     public String joinP(){
+
+        if(userService.isAuthenticated()){
+            return "redirect:/articleList";
+        }
+
         return "join";
     }
 
     @PostMapping("/joinProc")
     public String joinProcess(@Valid JoinRequestDTO joinRequestDTO, Errors errors, Model model){
+
+        if(userService.isAuthenticated()){
+            return "redirect:/";
+        }
 
         Map<String ,String> joinInfo = new HashMap<>();
         joinInfo.put("username", joinRequestDTO.getUsername());
