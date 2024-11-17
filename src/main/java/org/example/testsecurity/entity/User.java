@@ -1,12 +1,14 @@
 package org.example.testsecurity.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Setter
 @Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id
@@ -19,4 +21,11 @@ public class User {
     private String password;
 
     private String role; //admin이나 user 역할 부여용 컬럼
+
+    @Builder
+    public User(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 }

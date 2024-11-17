@@ -33,10 +33,11 @@ public class UserService {
             return false;
         }
 
-        User user = new User();
-        user.setUsername(joinDTO.getUsername());
-        user.setPassword(bCryptPasswordEncoder.encode(joinDTO.getPassword()));
-        user.setRole("ROLE_USER");
+        User user = User.builder()
+                .username(joinDTO.getUsername())
+                .password(bCryptPasswordEncoder.encode(joinDTO.getPassword()))
+                .role("ROLE_USER")
+                .build();
 
         userRepository.save(user);
         return true;
