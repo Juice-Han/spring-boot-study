@@ -14,7 +14,6 @@ import org.springframework.validation.FieldError;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,11 +43,9 @@ public class UserService {
     }
 
     public void deleteUserById(int id){
-        Optional<User> user = userRepository.findById(id);
-        if(user.isEmpty()){
-            throw new UserDoesntExistException("User doesnt exist", ErrorCode.USER_DOESNT_EXIST);
-        }
-        userRepository.delete(user.get());
+        User user = userRepository.findById(id)
+                .orElseThrow(()-> new UserDoesntExistException("User doesnt exist", ErrorCode.USER_DOESNT_EXIST));
+        userRepository.delete(user);
     }
 
     public Map<String, String> validateHandling(Errors errors){
