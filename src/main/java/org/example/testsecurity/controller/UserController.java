@@ -59,7 +59,13 @@ public class UserController {
             return "join";
         }
 
-        userService.joinProcess(joinRequestDTO);
+        boolean isCreated = userService.joinProcess(joinRequestDTO); // 중복된 아이디
+
+        if(!isCreated){
+            model.addAttribute("userInfo", joinRequestDTO);
+            model.addAttribute("duplicateId",true);
+            return "join";
+        }
 
         return "redirect:/login";
     }

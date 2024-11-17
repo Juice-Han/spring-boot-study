@@ -3,6 +3,8 @@ package org.example.testsecurity.service;
 import lombok.RequiredArgsConstructor;
 import org.example.testsecurity.dto.JoinRequestDTO;
 import org.example.testsecurity.entity.User;
+import org.example.testsecurity.exception.ErrorCode;
+import org.example.testsecurity.exception.customExceptions.UserDoesntExistException;
 import org.example.testsecurity.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,11 +26,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void joinProcess(JoinRequestDTO joinDTO) {
+    public boolean joinProcess(JoinRequestDTO joinDTO) {
 
         boolean isUser = userRepository.existsByUsername(joinDTO.getUsername());
         if(isUser) {
-            return;
+            return false;
         }
 
         User user = new User();
@@ -37,13 +39,15 @@ public class UserService {
         user.setRole("ROLE_USER");
 
         userRepository.save(user);
+        return true;
     }
 
     public void deleteUserById(int id){
         Optional<User> user = userRepository.findById(id);
-        if(user.isPresent()){
-            userRepository.delete(user.get());
+        if(user.isEmpty()){
+            throw new UserDoesntExistException("User doesnt exist", ErrorCode.USER_DOESNT_EXIST);
         }
+        userRepository.delete(user.get());
     }
 
     public Map<String, String> validateHandling(Errors errors){

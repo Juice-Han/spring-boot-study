@@ -17,7 +17,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/login","/loginProc","/join","joinProc").permitAll()
+                        .requestMatchers("/", "/login","/loginProc","/join","joinProc", "/errorExample").permitAll()
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // static 자원에 대한 접근 모두 허용
                         .requestMatchers("api/admin/**","/admin/**").hasRole("ADMIN")
                         .requestMatchers("/my/**", "/logout").hasAnyRole("ADMIN", "USER")

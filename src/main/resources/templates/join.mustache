@@ -8,6 +8,11 @@
 <body>
 <div class="container mt-5">
     <h3>회원가입</h3>
+    {{#duplicateId}}
+        <div class="alert alert-danger" role="alert">
+            아이디가 중복되었습니다. 다른 아이디로 시도해주세요.
+        </div>
+    {{/duplicateId}}
     <form id=joinForm class="mt-3" action="/joinProc" method="post" name="joinForm">
         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         <div class="mb-3">
