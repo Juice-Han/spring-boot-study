@@ -15,6 +15,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -47,9 +48,13 @@ public class UserController {
     @PostMapping("/joinProc")
     public String joinProcess(@Valid JoinRequestDTO joinRequestDTO, Errors errors, Model model){
 
+        Map<String ,String> joinInfo = new HashMap<>();
+        joinInfo.put("username", joinRequestDTO.getUsername());
+        joinInfo.put("password", joinRequestDTO.getPassword());
+
         if(errors.hasErrors()){
 
-            model.addAttribute("userInfo", joinRequestDTO); // 사용자 입력값 기억
+            model.addAttribute("joinInfo", joinInfo); // 사용자 입력값 기억
 
             Map<String, String> validatorResult = userService.validateHandling(errors);
             for(String key: validatorResult.keySet()){
@@ -62,7 +67,7 @@ public class UserController {
         boolean isCreated = userService.joinProcess(joinRequestDTO); // 중복된 아이디
 
         if(!isCreated){
-            model.addAttribute("userInfo", joinRequestDTO);
+            model.addAttribute("joinInfo", joinInfo);
             model.addAttribute("duplicateId",true);
             return "join";
         }

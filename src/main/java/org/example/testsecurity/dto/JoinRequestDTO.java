@@ -2,13 +2,13 @@ package org.example.testsecurity.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter // setter 설정을 해야 form 데이터 dto로 받을 수 있음
 @NoArgsConstructor
-@Builder
 public class JoinRequestDTO {
 
     @NotBlank(message = "아이디는 필수 입력 값입니다.")
