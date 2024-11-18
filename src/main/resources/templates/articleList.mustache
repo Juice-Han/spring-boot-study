@@ -7,7 +7,26 @@
 </head>
 <body>
 {{>navbar-authenticated}}
-<div class="w-100 bg-secondary mt-0" style="height: 200px">
+<div class="w-100 bg-secondary-subtle mt-0" style="height: 200px">
+    <div class="container h-100 d-flex align-items-center">
+        <p class="display-3 ms-3">게시판</p>
+    </div>
+</div>
+<div class="container mt-3">
+    <div class="row justify-content-center justify-content-md-evenly">
+        {{#articleList}}
+            <a href="#" class="text-decoration-none">
+                <div class="card col-12 col-md-5">
+                    <div class="card-body">
+                        <h5 class="card-title fs-3">{{title}}</h5>
+                        <p class="card-text text-secondary">
+                            {{content}}...
+                        </p>
+                    </div>
+                </div>
+            </a>
+        {{/articleList}}
+    </div>
 </div>
 
 
