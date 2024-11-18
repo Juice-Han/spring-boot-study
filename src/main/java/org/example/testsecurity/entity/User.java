@@ -28,6 +28,9 @@ public class User implements UserDetails {
 
     private String role; //admin이나 user 역할 부여용 컬럼
 
+    @OneToMany(mappedBy = "user")
+    private List<Article> articleList;
+
     @Builder
     public User(String username, String password, String role) {
         this.username = username;
