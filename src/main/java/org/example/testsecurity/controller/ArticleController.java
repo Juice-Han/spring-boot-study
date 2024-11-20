@@ -35,7 +35,7 @@ public class ArticleController {
         ArticleWithUsernameDTO articleDTO = articleService.findArticleById(id);
         model.addAttribute("article", articleDTO);
         if(articleDTO.getUsername().equals(authentication.getName())){
-            return "articleDetailCanUpdate";
+            return "articleDetailCanUpdateDelete";
         }
 
         return "articleDetail";

@@ -74,4 +74,12 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
+    public void delete(Long id, String username){
+        Article article = articleRepository.findById(id)
+                        .orElseThrow(()-> new ArticleDoesntExistException("Article doesnt exist", ErrorCode.ARTICLE_DOESNT_EXIST));
+        if(!article.getUser().getUsername().equals(username)) return;
+
+        articleRepository.delete(article);
+    }
+
 }

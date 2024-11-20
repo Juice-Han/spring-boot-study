@@ -12,7 +12,10 @@
     <p class="display-5 text-break">{{article.title}}</p>
     <div class="d-flex justify-content-between align-items-center">
         <div class="fs-6 text-body-secondary">작성자: {{article.username}}</div>
-        <button class="btn btn-success" onclick="location.href='/articles/{{article.id}}/update'">글 수정</button>
+        <div>
+            <button class="btn btn-success" onclick="location.href='/articles/{{article.id}}/update'">수정</button>
+            <button class="btn btn-danger" onclick="deleteArticle({{article.id}})">삭제</button>
+        </div>
     </div>
 
     <hr>
@@ -24,5 +27,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+<script>
+    function deleteArticle(id) {
+        fetch(`/api/articles/${id}`,
+                {
+                    method: 'DELETE'
+                }
+        ).then((res) => {
+            if(res.status === 200){
+                alert("삭제가 완료되었습니다.")
+                location.replace('/articles')
+            }
+        })
+    }
+</script>
 </body>
 </html>
