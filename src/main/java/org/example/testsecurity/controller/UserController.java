@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -70,9 +71,9 @@ public class UserController {
 
             model.addAttribute("joinInfo", joinInfo); // 사용자 입력값 기억
 
-            Map<String, String> validatorResult = userService.validateHandling(errors);
-            for(String key: validatorResult.keySet()){
-                model.addAttribute(key, validatorResult.get(key)); // validation 실패한 필드와 에러 메세지를 짝지어 모델에 추가
+            for(FieldError error : errors.getFieldErrors()){
+                String validKeyName = String.format("validMessage_%s", error.getField());
+                model.addAttribute(validKeyName, error.getDefaultMessage());
             }
 
             return "join";

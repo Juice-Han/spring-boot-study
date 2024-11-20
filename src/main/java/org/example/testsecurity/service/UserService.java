@@ -51,16 +51,6 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public Map<String, String> validateHandling(Errors errors){
-        Map<String, String> validatorResult = new HashMap<>();
-
-        for(FieldError error : errors.getFieldErrors()){
-            String validKeyName = String.format("validMessage_%s", error.getField());
-            validatorResult.put(validKeyName, error.getDefaultMessage());
-        }
-        return validatorResult;
-    }
-
     public boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || AnonymousAuthenticationToken.class.
