@@ -15,7 +15,7 @@ public class AdminRestController {
     private final UserService userService;
 
     @DeleteMapping("/api/admin/users/{id}")
-    public ResponseEntity<AdminDeleteUserResponse> deleteUser(@PathVariable("id") int id){
+    public ResponseEntity<AdminDeleteUserResponse> deleteUser(@PathVariable("id") Long id){
         userService.deleteUserById(id);
         return new ResponseEntity<>(AdminDeleteUserResponse.builder()
                 .id(id)

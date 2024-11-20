@@ -5,10 +5,10 @@ import lombok.Getter;
 
 @Getter
 public class AdminDeleteUserResponse {
-    private int id;
+    private Long id;
 
     @Builder
-    public AdminDeleteUserResponse(int id) {
+    public AdminDeleteUserResponse(Long id) {
         this.id = id;
     }
 }

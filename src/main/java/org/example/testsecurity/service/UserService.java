@@ -41,7 +41,7 @@ public class UserService {
         return true;
     }
 
-    public void deleteUserById(int id){
+    public void deleteUserById(Long id){
         User user = userRepository.findById(id)
                 .orElseThrow(()-> new UserDoesntExistException("User doesnt exist", ErrorCode.USER_DOESNT_EXIST));
         userRepository.delete(user);
