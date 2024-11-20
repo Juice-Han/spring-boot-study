@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.testsecurity.dto.ArticleTitleAndContentDTO;
 import org.example.testsecurity.dto.ArticleWithUsernameDTO;
 import org.example.testsecurity.dto.WriteArticleRequestDTO;
-import org.example.testsecurity.entity.Article;
 import org.example.testsecurity.service.ArticleService;
 import org.example.testsecurity.service.UserService;
 import org.springframework.security.core.Authentication;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
