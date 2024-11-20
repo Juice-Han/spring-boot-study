@@ -28,26 +28,26 @@ public class ArticleController {
     private final UserService userService;
     private final ArticleService articleService;
 
-    @GetMapping("/articleList")
+    @GetMapping("/articles")
     public String articleList(Model model) {
         List<ArticleTitleAndContentDTO> articleList = articleService.findAllArticleWithShortContent();
         model.addAttribute("articleList", articleList);
         return "articleList";
     }
 
-    @GetMapping("/articleList/{id}")
+    @GetMapping("/articles/{id}")
     public String getArticle(@PathVariable("id") Long id, Model model) {
         ArticleWithUsernameDTO articleDTO = articleService.findArticleById(id);
         model.addAttribute("article", articleDTO);
         return "articleDetail";
     }
 
-    @GetMapping("/article/write")
+    @GetMapping("/articles/write")
     public String writeArticle(Model model) {
         return "writeArticle";
     }
 
-    @PostMapping("/article/write")
+    @PostMapping("/articles")
     public String writeProc(@Valid WriteArticleRequestDTO requestDTO, Errors errors, Model model, Authentication authentication) {
         if (errors.hasErrors()) {
             model.addAttribute("writeInfo", requestDTO);
@@ -62,7 +62,7 @@ public class ArticleController {
 
         articleService.save(requestDTO, authentication.getName());
 
-        return "redirect:/articleList";
+        return "redirect:/articles";
     }
 
 }

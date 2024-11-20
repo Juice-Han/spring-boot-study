@@ -39,4 +39,12 @@ public class Article {
         this.content = content;
         this.user = user;
     }
+
+    public void updateTitle(String title){
+        this.title = title;
+    }
+
+    public void updateContent(String content){
+        this.content = content;
+    }
 }

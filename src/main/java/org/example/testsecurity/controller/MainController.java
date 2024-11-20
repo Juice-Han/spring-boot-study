@@ -15,7 +15,7 @@ public class MainController {
     public String mainP(){
 
         if(userService.isAuthenticated()){
-            return "redirect:/articleList";
+            return "redirect:/articles";
         }
 
         return "main";

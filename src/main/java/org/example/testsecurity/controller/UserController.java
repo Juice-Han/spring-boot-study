@@ -28,7 +28,7 @@ public class UserController {
     public String loginP(HttpServletRequest request){
 
         if(userService.isAuthenticated()){
-            return "redirect:/articleList";
+            return "redirect:/articles";
         }
 
         return "login";
@@ -49,7 +49,7 @@ public class UserController {
     public String joinP(){
 
         if(userService.isAuthenticated()){
-            return "redirect:/articleList";
+            return "redirect:/articles";
         }
 
         return "join";

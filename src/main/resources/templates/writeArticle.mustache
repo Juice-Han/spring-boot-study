@@ -9,7 +9,7 @@
 {{>navbar-authenticated}}
 <div class="container mt-5">
     <h1 class="mb-4">글 작성</h1>
-    <form action="/article/write" method="post">
+    <form action="/articles" method="post">
         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         {{#writeInfo}}
             <div class="mb-3">
