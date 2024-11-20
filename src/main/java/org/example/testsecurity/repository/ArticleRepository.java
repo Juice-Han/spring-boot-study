@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query(value = "select new org.example.testsecurity.dto.ArticleTitleAndContentDTO(" +
-            "ac.id, ac.title, substring(ac.content,1,100), ac.user.username) from Article ac")
+            "ac.id, ac.title, substring(ac.content,1,100), ac.user.username) from Article ac order by ac.created_at DESC")
     List<ArticleTitleAndContentDTO> findArticleWithShortContent();
 
     @Query(value = "select new org.example.testsecurity.dto.ArticleWithUsernameDTO(" +
