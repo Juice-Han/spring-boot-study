@@ -2,9 +2,7 @@ package org.example.testsecurity.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.testsecurity.dto.ArticleTitleAndContentDTO;
-import org.example.testsecurity.dto.ArticleWithUsernameDTO;
-import org.example.testsecurity.dto.WriteArticleRequestDTO;
+import org.example.testsecurity.dto.*;
 import org.example.testsecurity.service.ArticleService;
 import org.example.testsecurity.service.UserService;
 import org.springframework.security.core.Authentication;
@@ -33,9 +31,13 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{id}")
-    public String getArticle(@PathVariable("id") Long id, Model model) {
+    public String getArticle(@PathVariable("id") Long id, Model model, Authentication authentication) {
         ArticleWithUsernameDTO articleDTO = articleService.findArticleById(id);
         model.addAttribute("article", articleDTO);
+        if(articleDTO.getUsername().equals(authentication.getName())){
+            return "articleDetailCanUpdate";
+        }
+
         return "articleDetail";
     }
 
@@ -60,6 +62,34 @@ public class ArticleController {
         articleService.save(requestDTO, authentication.getName());
 
         return "redirect:/articles";
+    }
+
+    @GetMapping("/articles/{id}/update")
+    public String updateP(@PathVariable("id") Long id, Model model, Authentication authentication) {
+        ArticleDTO articleDTO = articleService.findArticleByIdAndCheckUser(id, authentication.getName());
+
+        model.addAttribute("updateInfo", articleDTO);
+
+        return "updateArticle";
+    }
+
+    @PostMapping("/articles/{id}/update")
+    public String updateArticle(@PathVariable("id") Long id, @Valid UpdateArticleRequestDTO requestDTO,
+                                Errors errors, Model model, Authentication authentication){
+        if (errors.hasErrors()) {
+            model.addAttribute("updateInfo", requestDTO);
+
+            for(FieldError error : errors.getFieldErrors()){
+                String validKeyName = String.format("validMessage_%s", error.getField());
+                model.addAttribute(validKeyName, error.getDefaultMessage());
+            }
+
+            return "updateArticle";
+        }
+
+        articleService.update(id, requestDTO, authentication.getName());
+
+        return "redirect:/articles/"+id;
     }
 
 }

@@ -19,6 +19,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<ArticleTitleAndContentDTO> findArticleWithShortContent();
 
     @Query(value = "select new org.example.testsecurity.dto.ArticleWithUsernameDTO(" +
-            "ac.title, ac.content, ac.user.username) from Article ac where ac.id = :articleId")
+            "ac.id, ac.title, ac.content, ac.user.username) from Article ac where ac.id = :articleId")
     Optional<ArticleWithUsernameDTO> findArticleByIdWithUsername(@Param("articleId") Long articleId);
 }
