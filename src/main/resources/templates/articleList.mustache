@@ -17,11 +17,14 @@
 {{>navbar-authenticated}}
 <div class="w-100 bg-secondary-subtle mt-0" style="height: 200px">
     <div class="container h-100 d-flex align-items-center">
-        <p class="display-3 ms-3">게시판</p>
+        <div class="w-100 d-flex justify-content-between">
+            <div class="display-3 ms-3">게시판</div>
+            <button class="btn btn-dark ms-4" onclick="location.href='/article/write'">글 작성</button>
+        </div>
     </div>
 </div>
-<div class="container mt-3">
-    <div class="row row-cols-1 row-cols-md-2 gx-5 gy-4 mt-3">
+<div class="container mt-3 mb-3">
+    <div class="row row-cols-1 row-cols-md-2 gx-md-5 gy-4 mt-3">
         {{#articleList}}
             <div class="col">
                 <div class="card shadow">

@@ -34,8 +34,9 @@ public class Article {
     private LocalDateTime updated_at;
 
     @Builder
-    public Article(String title, String content){
+    public Article(String title, String content, User user){
         this.title = title;
         this.content = content;
+        this.user = user;
     }
 }
