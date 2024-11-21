@@ -82,4 +82,13 @@ public class ArticleService {
         articleRepository.delete(article);
     }
 
+    public List<Article> getAllArticles(){
+        return articleRepository.findAll();
+    }
+
+    public void deleteById(Long id){
+        Article article = articleRepository.findById(id)
+                        .orElseThrow(()-> new ArticleDoesntExistException("Article doesnt exist", ErrorCode.ARTICLE_DOESNT_EXIST));
+        articleRepository.delete(article);
+    }
 }

@@ -1,7 +1,9 @@
 package org.example.testsecurity.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.testsecurity.entity.Article;
 import org.example.testsecurity.entity.User;
+import org.example.testsecurity.service.ArticleService;
 import org.example.testsecurity.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
+    private final ArticleService articleService;
 
     @GetMapping("/admin")
     public String adminP(){
@@ -25,5 +28,12 @@ public class AdminController {
         List<User> userList = userService.getUsers();
         model.addAttribute("userList", userList);
         return "manageUser";
+    }
+
+    @GetMapping("/admin/articles")
+    public String manageArticles(Model model){
+        List<Article> articleList = articleService.getAllArticles();
+        model.addAttribute("articleList", articleList);
+        return "manageArticle";
     }
 }
