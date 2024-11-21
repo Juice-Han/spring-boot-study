@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.testsecurity.dto.JoinRequestDTO;
+import org.example.testsecurity.dto.LoginRequestDTO;
 import org.example.testsecurity.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +33,12 @@ public class UserController {
             return "redirect:/articles";
         }
 
+        return "login";
+    }
+
+    @PostMapping("/loginFail")
+    public String loginFail(LoginRequestDTO requestDTO, Model model){
+        model.addAttribute("loginError", requestDTO);
         return "login";
     }
 

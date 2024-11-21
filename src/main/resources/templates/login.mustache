@@ -9,23 +9,26 @@
 {{>navbar-default}}
 <div class="container mt-5 p-4 border border-2 rounded" style="max-width: 500px">
     <h3>로그인</h3>
+    {{#loginError}}
+        <div class="alert alert-danger">잘못된 로그인 정보입니다.</div>
+    {{/loginError}}
     <form id=loginForm class="mt-3" action="/loginProc" method="post" name="loginForm">
         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         <div class="mb-3">
-            {{#loginInfo}}
+            {{#loginError}}
                 <label for="username" class="form-label">아이디</label>
                 <input class="form-control" id="username" type="text" name="username" placeholder="id"
                        value="{{username}}"/>
                 <label for="password" class="form-label">비밀번호</label>
                 <input class="form-control" id="password" type="password" name="password" placeholder="password"
                        value="{{password}}"/>
-            {{/loginInfo}}
-            {{^loginInfo}}
+            {{/loginError}}
+            {{^loginError}}
                 <label for="username" class="form-label">아이디</label>
                 <input class="form-control" id="username" type="text" name="username" placeholder="id"/>
                 <label for="password" class="form-label">비밀번호</label>
                 <input class="form-control" id="password" type="password" name="password" placeholder="password"/>
-            {{/loginInfo}}
+            {{/loginError}}
         </div>
     </form>
     <div class="text-end">

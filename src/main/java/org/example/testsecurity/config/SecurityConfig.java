@@ -17,7 +17,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/login","/loginProc","/join","joinProc").permitAll()
+                        .requestMatchers("/", "/login","/loginProc","/join","joinProc", "loginFail").permitAll()
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // static 자원에 대한 접근 모두 허용
                         .requestMatchers("/api/admin/**","/admin/**").hasRole("ADMIN")
                         .requestMatchers("/logout").hasAnyRole("ADMIN", "USER")
@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .formLogin((auth) -> auth
                         .loginPage("/login")
                         .loginProcessingUrl("/loginProc")
+                        .failureForwardUrl("/loginFail")
                         .defaultSuccessUrl("/articles", true)
                         .permitAll()
                 );
