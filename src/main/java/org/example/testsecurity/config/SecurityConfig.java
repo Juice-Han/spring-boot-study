@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .logout((auth) -> auth
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
                 );
 
         // 중복 로그인 처리하는 과정

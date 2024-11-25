@@ -24,3 +24,7 @@ server:
       timeout: 3600 # 세션 소멸 시간 지정 (단위: 초)
     encoding:
       force-response: true # 한글 깨짐 방지
+
+jwt:
+  issuer: jwt@gamil.com
+  secret_key: jwt-study
